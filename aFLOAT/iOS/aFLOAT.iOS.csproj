@@ -100,11 +100,21 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\1242x2208.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\750x1334.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\2208x1242.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\640x960.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\640x1136.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Model\" />
+    <Folder Include="Model\Object\" />
+    <Folder Include="Values\" />
+    <Folder Include="Source\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -113,6 +123,13 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Utils\BleClient.cs" />
+    <Compile Include="Model\Object\Device.cs" />
+    <Compile Include="Model\EventArgs.cs" />
+    <Compile Include="Values\Colours.cs" />
+    <Compile Include="Source\DeviceTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -12,6 +12,12 @@ namespace aFLOAT.iOS
 
         public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
         {
+            Window = new UIWindow (UIScreen.MainScreen.Bounds);
+            Window.RootViewController = new MainController ();
+            Window.MakeKeyAndVisible ();
+
+            BleClient.Init ();
+
             return true;
         }
     }
