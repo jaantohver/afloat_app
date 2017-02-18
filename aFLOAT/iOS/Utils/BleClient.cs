@@ -14,6 +14,7 @@ namespace aFLOAT.iOS
 
         public static event EventHandler Connected, Disconnected;
         public static event EventHandler<CBDiscoveredPeripheralEventArgs> DeviceDiscovered;
+        public static event EventHandler<NotificationEventArgs> Notified;
 
         public static void Init ()
         {
@@ -119,7 +120,7 @@ namespace aFLOAT.iOS
                 return;
             }
 
-            Console.WriteLine ("Updated characteristic value {0}", string.Join (",", e.Characteristic.Value.ToArray ()));
+            Notified?.Invoke (null, EventArgs.Empty);
         }
     }
 }

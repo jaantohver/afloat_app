@@ -113,8 +113,8 @@
     <Folder Include="Utils\" />
     <Folder Include="Model\" />
     <Folder Include="Model\Object\" />
-    <Folder Include="Values\" />
     <Folder Include="Source\" />
+    <Folder Include="Model\EventArgs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -127,9 +127,11 @@
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Utils\BleClient.cs" />
     <Compile Include="Model\Object\Device.cs" />
-    <Compile Include="Model\EventArgs.cs" />
-    <Compile Include="Values\Colours.cs" />
     <Compile Include="Source\DeviceTableSource.cs" />
+    <Compile Include="Views\Bobber.cs" />
+    <Compile Include="Views\Background.cs" />
+    <Compile Include="Model\EventArgs\DeviceEventArgs.cs" />
+    <Compile Include="Model\EventArgs\NotificationEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

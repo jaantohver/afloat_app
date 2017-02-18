@@ -27,6 +27,7 @@ namespace aFLOAT.iOS
 
             (contentView.DeviceTable.Source as DeviceTableSource).DeviceSelected += OnDeviceSelected;
 
+            BleClient.Notified += OnPeripheralnotification;
             BleClient.Connected += OnPeripheralConnected;
             BleClient.Disconnected += OnPeripheralDisconnected;
             BleClient.DeviceDiscovered += OnDeviceDiscovered;
@@ -46,6 +47,7 @@ namespace aFLOAT.iOS
 
             (contentView.DeviceTable.Source as DeviceTableSource).DeviceSelected -= OnDeviceSelected;
 
+            BleClient.Notified -= OnPeripheralnotification;
             BleClient.Connected -= OnPeripheralConnected;
             BleClient.Disconnected -= OnPeripheralDisconnected;
             BleClient.DeviceDiscovered -= OnDeviceDiscovered;
@@ -59,6 +61,10 @@ namespace aFLOAT.iOS
             BleClient.Connect (e.Device.Peripheral);
 
             contentView.HideDeviceTable ();
+        }
+
+        void OnPeripheralnotification (object sender, NotificationEventArgs e)
+        {
         }
 
         void OnPeripheralConnected (object sender, EventArgs e)
