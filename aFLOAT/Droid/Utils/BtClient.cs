@@ -31,12 +31,12 @@ namespace aFLOAT.Droid
             gattCallback.Disconnected += OnDeviceDisconencted;
 
             if (adapter == null) {
-                Console.WriteLine (" Device does not support Bluetooth");
+                Console.WriteLine ("Device does not support Bluetooth");
                 return;
             }
 
             if (!adapter.IsEnabled) {
-                Console.WriteLine (" Bluetooth is not enabled");
+                Console.WriteLine ("Bluetooth is not enabled");
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace aFLOAT.Droid
 
                     Console.WriteLine (deviceName + " - " + deviceHardwareAddress);
 
-                    if (deviceHardwareAddress == "20:16:02:30:52:56") {
+                    if (deviceHardwareAddress == "20:16:02:30:52:56" || deviceName == "aFloat") {
                         Device = d;
 
                         Found?.Invoke (null, EventArgs.Empty);

@@ -9,6 +9,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 	<application android:label="aFLOAT">
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA_DjCiNko4HDzYk9xxWeSc5OA5KuYiLd0" />
 	</application>

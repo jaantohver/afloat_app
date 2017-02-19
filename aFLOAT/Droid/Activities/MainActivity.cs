@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using Android.OS;
 using Android.App;
@@ -7,7 +8,7 @@ using Android.Bluetooth;
 
 namespace aFLOAT.Droid
 {
-    [Activity (MainLauncher = true, Label = "aFLOAT", Icon = "@mipmap/icon")]
+    [Activity (MainLauncher = true, Label = "aFloat", Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
         MainView contentView;
@@ -25,6 +26,10 @@ namespace aFLOAT.Droid
             RegisterReceiver (new BtReceiver (), filter);
 
             contentView.Map.OnCreate (savedInstanceState);
+
+            Timer t = new Timer (delegate {
+                BtReceiver.StartRead ();
+            }, null, 5000, int.MaxValue);
         }
 
         protected override void OnStart ()
@@ -38,7 +43,23 @@ namespace aFLOAT.Droid
         {
             base.OnResume ();
 
-            contentView.button.Click += OnButtonClick;
+            contentView.StartReadButton.Click += OnButtonClick;
+            contentView.EndReadButton.Click += EndRead;
+            contentView.LedOnButton.Click += delegate {
+                new Thread (() => {
+                    BtReceiver.LedOn ();
+                }).Start ();
+            };
+            contentView.LedOffButton.Click += delegate {
+                new Thread (() => {
+                    BtReceiver.LedOff ();
+                }).Start ();
+            };
+            contentView.ResetButton.Click += delegate {
+                new Thread (() => {
+                    BtReceiver.Reset ();
+                }).Start ();
+            };
 
             BtClient.Scanning += OnScanning;
             BtClient.Found += OnDeviceFound;
@@ -90,58 +111,65 @@ namespace aFLOAT.Droid
 
         void OnButtonClick (object sender, EventArgs e)
         {
-            BtReceiver.WriteToSocket ();
+            BtReceiver.StartRead ();
+        }
+
+        void EndRead (object sender, EventArgs e)
+        {
+            BtReceiver.EndRead ();
         }
 
         void OnScanning (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Scanning");
-            });
         }
 
         void OnDeviceFound (object sender, EventArgs e)
         {
             RunOnUiThread (delegate {
-                contentView.SetStatusText ("Device found");
-
                 BtClient.Connect (this);
             });
         }
 
         void OnDeviceNotFound (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Device not found");
-            });
         }
 
         void OnConencting (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Connecting");
-            });
         }
 
         void OnConnected (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Connected");
-            });
         }
 
         void OnDisconnecting (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Disconnecting");
-            });
         }
 
         void OnDisconnected (object sender, EventArgs e)
         {
-            RunOnUiThread (delegate {
-                contentView.SetStatusText ("Disconnected");
-            });
+        }
+
+        AlertDialog a;
+
+        public void Vibrate ()
+        {
+            Vibrator mVibrator = (Vibrator)GetSystemService (Context.VibratorService);
+
+            // Vibrate for 300 milliseconds
+            mVibrator.Vibrate (500);
+
+            if (a == null || !a.IsShowing) {
+                AlertDialog.Builder b = new AlertDialog.Builder (this, AlertDialog.ThemeDeviceDefaultLight);
+                b.SetTitle ("Fish caught!");
+                b.SetNeutralButton ("Nice", delegate {
+                    BtReceiver.Reset ();
+                });
+
+                RunOnUiThread (delegate {
+                    a = b.Show ();
+                });
+            }
         }
     }
 }
