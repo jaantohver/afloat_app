@@ -27,7 +27,7 @@ namespace aFLOAT.iOS
             Device device = devices [indexPath.Row];
 
             UITableViewCell cell = new UITableViewCell (UITableViewCellStyle.Subtitle, string.Empty);
-            cell.TextLabel.Text = device.Peripheral.Name;
+            cell.TextLabel.Text = device.Peripheral.Name ?? "N/A";
             cell.DetailTextLabel.Text = "RSSI: " + device.RSSI;
             cell.BackgroundColor = UIColor.White;
 

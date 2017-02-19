@@ -27,7 +27,7 @@ namespace aFLOAT.iOS
             DeviceTable.TableFooterView = new UIView (CGRect.Empty);
 
             deviceTableContainer.AddSubviews (
-            //DeviceTable
+                DeviceTable
             );
 
             AddSubviews (

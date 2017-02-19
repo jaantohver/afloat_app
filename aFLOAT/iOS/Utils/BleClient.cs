@@ -53,10 +53,6 @@ namespace aFLOAT.iOS
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace (e.Peripheral.Name)) {
-                return;
-            }
-
             Console.WriteLine ("Discovered peripheral");
 
             DeviceDiscovered?.Invoke (null, e);
@@ -120,7 +116,7 @@ namespace aFLOAT.iOS
                 return;
             }
 
-            Notified?.Invoke (null, EventArgs.Empty);
+            Notified?.Invoke (null, new NotificationEventArgs ());
         }
     }
 }
